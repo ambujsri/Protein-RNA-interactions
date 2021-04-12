@@ -1,5 +1,7 @@
-# Protein-RNA-interactions
-Interaction analysis of protein-RNA complexes
+# Protein-RNA-interactions 
+Interaction analysis of protein-RNA complexes 
+The program is built on Python2.7;
+To run the program, a PDB file and van der Waals parameter files for protein (named: aa_20vdrch) and RNA (named: rna_4vdrch) are required; 
 __init__:  Function initialize the instance of protein_RNA_interaction class with PDF file name (with path), protein chain and RNA chain;
 f1_header: Function extract the header of PDB file;
 f2_atom_coords: Extract the atom records from PDB file in the format of list;
