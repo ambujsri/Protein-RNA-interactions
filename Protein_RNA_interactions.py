@@ -305,12 +305,4 @@ energy_df = inst2.f7_energy2(df_inter,aa_param,na_param)
 atoms_involve = inst2.f8_interaction_type(df_inter)
 energy_dict = inst2.f9_energy_div(energy_df)
 
-#ans =inst2.proteinNAcontact('imp_pdb/4gzy.pdb','D','R',4, False)
-#print ans
-#        contact_res.append(pd.Series(list([prot_res, prot_resno]), index=['prot_res', 'prot_resno']), ignore_index= True) 
-#        contact_res = contact_res.append(pd.Series(['a', 'b'],index=['col1','col2']), ignore_index = True)
-
-                
-#    def extract_na_coords(self, file_name, chain):
-#        atoms = atom_coords(file_name,chain)
 
