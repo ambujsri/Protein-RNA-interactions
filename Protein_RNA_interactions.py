@@ -13,13 +13,6 @@ import math
 from Bio import PDB
 import warnings
 from Bio.PDB.PDBExceptions import PDBConstructionException, PDBConstructionWarning
-#class BOOTSTRAP:
-#    num_of_sample = 58
-#    def __init__(self):
-#        rnd_no = 0
-#    def gen_rand(self, first, second):
-#        rnd_no = random.randint(first, second)
-#        return rnd_no
 
 
 class Protein_RNA_ineraction:
@@ -31,10 +24,12 @@ class Protein_RNA_ineraction:
 #        self.coords_line = []
 #        self.coords = []
 #    coords_xyz = np.zeros((3))
+# f1_header function returns the header of PDB file.
     def f1_header(self):
         record = open(self.pdb_file,'r').readlines()[0]
         dict1 = {'title':record[10:50].rstrip(),'date':record[51:60].rstrip(),'ID':record[62:66]}
         return dict1
+# f2_atom_coords return the ATOM records from the PDB file for the desired chain
     def f2_atom_coords(self, chain='A'):
         coords_line = []
         if len(chain) == 1:
@@ -56,7 +51,7 @@ class Protein_RNA_ineraction:
 #                    self.coords[i].append(float(line[47:54]))
 #            print self.coords
         return coords_line
-
+# f3_extract_seqres extract the SEQRES records from the PDB file 
     def f3_extract_seqres(self, chain='A'):
         seq_line = []
         pattern2 = '^SEQRES.{4}'
@@ -74,10 +69,12 @@ class Protein_RNA_ineraction:
 #        check = molecule_type(pdb_file, chain)        
 #        seq=inst.fasta_format(seq_line)
         return seq_line
-    
-    def f4_seqres_to_fasta(self, seq_line,header):    #Output of f3_extract_seqres is input for this function
+# f4_seqres_to_fasta is used to extract sequence in fasta format from SEQRES records of PDB file 
+    #Output of f3_extract_seqres is input for this function
+    def f4_seqres_to_fasta(self, seq_line, header):    
         aa = {'ALA':'A','ARG':'R','ASN':'N','ASP':'D', 'CYS':'C', 'GLN':'Q', 'GLU':'E', 'GLY':'G', 'HIS':'H', 'ILE':'I', 'LEU':'L', 'LYS':'K', 'MET':'M','PHE':'F', 'PRO':'P', 'SER':'S', 'THR':'T', 'TRP':'W', 'TYR':'Y', 'VAL':'V'}
         nt = {'DA':'A','DG':'G','DU':'U','DC':'C','DT':'T', 'DI':'I'}
+        rnt = ['A','G','C','U','I']
         newseq = ''
         finalseq =[]
         finalseq.append('>'+header['ID'])
@@ -89,15 +86,22 @@ class Protein_RNA_ineraction:
                     if res in aa:
                         newseq += aa[res]
                     else:
-                        print (res+' not present')
+                        print (res+' is not a standard amino acid residue')
                 if len(res) == 2:
                     if res in nt:
                         newseq += nt[res]
+                    else:
+                        print (res+' is not a standard DNA nucleotide')
                 if len(res) == 1:
-                    newseq += res;
+                    if res in rnt:
+                        newseq += res;
+                    else: 
+                        print (res+' is not a standard RNA nucleotide')
         finalseq.append(newseq)
         return finalseq
-    def f5_seq_comp(self, seq_line):          #Output of f3_extract_seqres is input for this function
+# f5_seq_comp function calculate the sequence composition from SEQRES record
+#Output of f3_extract_seqres is input for this function
+    def f5_seq_comp(self, seq_line):          
         aa = {'ALA':0,'ARG':0,'ASN':0,'ASP':0, 'CYS':0, 'GLN':0, 'GLU':0, 'GLY':0, 'HIS':0, 'ILE':0, 'LEU':0, 'LYS':0, 'MET':0,'PHE':0, 'PRO':0, 'SER':0, 'THR':0, 'TRP':0, 'TYR':0, 'VAL':0}
         dnt = {'DA':0,'DG':0,'DU':0,'DC':0,'DT':0, 'DI':0}
         nt = {'A': 0, 'G':0, 'C':0, 'U':0, 'I':0}
