@@ -1,8 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 12 14:14:26 2021
-
 @author: ambuj
 """
 
@@ -51,7 +49,7 @@ class Protein_RNA_ineraction:
 #                    self.coords[i].append(float(line[47:54]))
 #            print self.coords
         return coords_line
-# f3_extract_seqres extract the SEQRES records from the PDB file 
+# f3_extract_seqres extracts the SEQRES records from the PDB file 
     def f3_extract_seqres(self, chain='A'):
         seq_line = []
         pattern2 = '^SEQRES.{4}'
@@ -99,7 +97,7 @@ class Protein_RNA_ineraction:
                         print (res+' is not a standard RNA nucleotide')
         finalseq.append(newseq)
         return finalseq
-# f5_seq_comp function calculate the sequence composition from SEQRES record
+# f5_seq_comp function calculates the sequence composition from SEQRES record
 #Output of f3_extract_seqres is input for this function
     def f5_seq_comp(self, seq_line):          
         aa = {'ALA':0,'ARG':0,'ASN':0,'ASP':0, 'CYS':0, 'GLN':0, 'GLU':0, 'GLY':0, 'HIS':0, 'ILE':0, 'LEU':0, 'LYS':0, 'MET':0,'PHE':0, 'PRO':0, 'SER':0, 'THR':0, 'TRP':0, 'TYR':0, 'VAL':0}
@@ -136,7 +134,7 @@ class Protein_RNA_ineraction:
         elif x3 >= x1 and x3 >= x2:
             return nt
 
-# f6_proteinRNAcontact2 calculate the atom to atom cotact under the distance cutoff (default is 5 Angstrom)
+# f6_proteinRNAcontact2 calculates the atom to atom contact under the distance cutoff (default is 5 Angstrom)
 # The PDF file path, protein chain and RNA chain will be used for the calculation which are initialized during variable declaration
     
     def f6_proteinRNAcontact2(self, dist_cutoff=5):
@@ -262,7 +260,7 @@ class Protein_RNA_ineraction:
 #            v12 =v1+v2
         return df1
 
-# f8_interaction_type function calculate the composition of interacting atoms (e.g. 'CO' represent a 'C' atom from protein interacting with 'O' atom of RNA) 
+# f8_interaction_type function calculates the composition of interacting atoms (e.g. 'CO' represent a 'C' atom from protein interacting with 'O' atom of RNA) 
 # Output of f6_proteinRNAcontact2 is input for this function
     def f8_interaction_type (self, df_inter):                     
         int_dict = {'CO':0,'OC':0,'NO':0,'ON':0}
