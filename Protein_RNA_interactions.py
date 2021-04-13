@@ -136,7 +136,8 @@ class Protein_RNA_ineraction:
         elif x3 >= x1 and x3 >= x2:
             return nt
 
-
+# f6_proteinRNAcontact2 calculate the atom to atom cotact under the distance cutoff (default is 5 Angstrom)
+# The PDF file path, protein chain and RNA chain will be used for the calculation which are initialized during variable declaration
     
     def f6_proteinRNAcontact2(self, dist_cutoff=5):
         
@@ -183,9 +184,10 @@ class Protein_RNA_ineraction:
         df_inter = temp1[b2]
         return df_inter
 
-
-    def f7_energy2(self, df_inter, aa_param,na_param):     #Output of f6_proteinRNAcontact2 is to be used as df_inter for this function
-                                                            # aa_param and na_param are the parameters optimized for amino acids and RNA nucleotides, respectively
+# f7_energy2 is used to calculate the energy value using optimized van der Waals parameters for amino acids and RNA nucleotides
+# Output of f6_proteinRNAcontact2 is to be used as df_inter for this function
+# aa_param and na_param are the parameters optimized for amino acids and RNA nucleotides, respectively
+    def f7_energy2(self, df_inter, aa_param,na_param):     
                                                             
         df1 = df_inter.copy(deep=True)
         
@@ -260,7 +262,9 @@ class Protein_RNA_ineraction:
 #            v12 =v1+v2
         return df1
 
-    def f8_interaction_type (self, df_inter):                     #Output of f6_proteinRNAcontact2 is input for this function
+# f8_interaction_type function calculate the composition of interacting atoms (e.g. 'CO' represent a 'C' atom from protein interacting with 'O' atom of RNA) 
+# Output of f6_proteinRNAcontact2 is input for this function
+    def f8_interaction_type (self, df_inter):                     
         int_dict = {'CO':0,'OC':0,'NO':0,'ON':0}
         temp_ptr = open('temp.txt','w')
         for index, dfrow in df_inter.iterrows():
@@ -274,9 +278,9 @@ class Protein_RNA_ineraction:
         return int_dict
 
 
-
-
-    def f9_energy_div (self, energy_df):              #Total energy calculation between main chain and side chains
+# f9_energy_div convert the energy into main chain and side chain contacts
+#Total energy calculation between main chain and side chains
+    def f9_energy_div (self, energy_df):              
 #        print df_inter
         energy_dict = {'mc_mc':0,'mc_sc':0,'sc_mc':0, 'sc_sc':0,'total1':0}
         if len(energy_df) ==0:
