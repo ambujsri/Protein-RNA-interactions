@@ -13,7 +13,7 @@ import warnings
 from Bio.PDB.PDBExceptions import PDBConstructionException, PDBConstructionWarning
 
 
-class Protein_RNA_ineraction:
+class Protein_RNA_ineractions:
     def __init__(self, pdb_file,prot_chain='A',rna_chain='B'):
         self.pdb_file = pdb_file
         self.prot_chain = prot_chain
@@ -297,10 +297,10 @@ class Protein_RNA_ineraction:
         energy_dict['sc_sc'] = energy_df[np.array(prot_sidech_b3) & np.array(na_sidech_b4)]['Vdw_energy'].sum()
         energy_dict['total1'] = energy_df['Vdw_energy'].sum()
         return energy_dict
-        
+
 aa_param = pd.read_csv('aa_20vdrch.csv')
 na_param = pd.read_csv('rna_4vdrch.csv')
-inst2 = Protein_RNA_ineraction('1j1u.pdb')
+inst2 = Protein_RNA_ineractions('1j1u.pdb')
 h1 = inst2.f1_header()
 atom_coords = inst2.f2_atom_coords(chain='A')
 seq_line=inst2.f3_extract_seqres()
